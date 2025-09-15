@@ -13,6 +13,7 @@
     />
     <!-- подключение стилей и JS-->
     <link rel="stylesheet" href="styles.css" />
+    <!-- defer загружает скрипт асинхронно и выполняется после полной загрузки DOM -->
     <script src="main.js" defer></script>
     <meta
       property="og:image"
@@ -84,19 +85,33 @@
             required
             autocomplete="email"
           />
-          <label for="phone">Телефон</label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            inputmode="tel"
-            autocomplete="tel"
-            aria-describedby="phoneHelp"
-            placeholder="+7 (___) ___-__-__"
-            required
-            pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$"
-          />
-          <small id="phoneHelp">Формат: +7 (900) 000-00-00</small>
+          <div class="form-group">
+            <label for="phone">Телефон *</label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              inputmode="tel"
+              autocomplete="tel"
+              aria-describedby="phoneHelp phoneError"
+              placeholder="+7 (900) 000-00-00"
+              required
+              pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$"
+              data-pattern-error="Номер должен быть в формате: +7 (900) 000-00-00"
+              data-required-error="Телефон обязателен для заполнения"
+            />
+            <small id="phoneHelp" class="help-text">
+              Введите российский номер телефона в формате: +7 (900) 000-00-00<br />
+              • Начинается с +7<br />
+              • Затем 10 цифр<br />
+              • Пример: +7 (912) 345-67-89
+            </small>
+            <span
+              id="phoneError"
+              class="error-text"
+              aria-live="assertive"
+            ></span>
+          </div>
           <label for="date">Дата</label>
           <input id="date" name="date" type="date" />
           <label for="topic">Тема</label>
@@ -120,5 +135,13 @@
       <p>&copy; 2023 Название вашего сайта. Все права защищены.</p>
       <p>Телефон: +7 (123) 456-78-90</p>
     </footer>
+    <!-- Диалог для уведомлений -->
+    <dialog id="notificationDialog" aria-labelledby="notificationTitle">
+      <h2 id="notificationTitle">Уведомление</h2>
+      <p id="notificationMessage">Сообщение отправлено успешно!</p>
+      <div class="form-actions">
+        <button type="button" id="closeNotification">OK</button>
+      </div>
+    </dialog>
   </body>
 </html>
